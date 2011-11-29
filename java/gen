@@ -1,0 +1,10 @@
+#!/bin/bash
+
+JAVA_PROJECT_DIR=/home/developer/workspaces/homeki/homekicore
+TELLDUSJNI_PROJECT_DIR=/home/developer/workspaces/homeki/telldusjni
+
+export CLASSPATH=$TELLDUSJNI_PROJECT_DIR/java
+
+javac $JAVA_PROJECT_DIR/src/com/homeki/core/device/tellstick/TellStickNative.java -d .
+javah -jni com.homeki.core.device.tellstick.TellStickNative
+
