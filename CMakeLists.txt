@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 2.6)
+
 project(homekijni)
 
+find_package(JNI REQUIRED)
+
 set(homekijni_lib_src telldusjni.cpp) 
-include_directories(/usr/lib/jvm/java-6-openjdk/include)
+
+include_directories(${JAVA_INCLUDE_PATH})
 
 add_library(homekijni SHARED ${homekijni_lib_src})
