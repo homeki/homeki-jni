@@ -1,0 +1,30 @@
+#!/bin/bash
+
+pushd `dirname "$0"`> /dev/null
+
+JAVA_PROJECT_DIR=../../homekicore
+
+if [ -z $1 ]; then
+	echo "Usage: imake build|eclipse|java"
+elif [ $1 = "build" ]; then
+	echo "imake: Building project..."
+	mkdir -p build
+	pushd build > /dev/null
+	cmake ..
+	make
+	popd > /dev/null
+elif [ $1 = "eclipse" ]; then
+	echo "imake: Generating Eclipse project files..."
+	cmake -G"Eclipse CDT4 - Unix Makefiles"
+elif [ $1 = "java" ]; then
+	echo "imake: Generating header files from Java source code..."
+	mkdir -p java
+	pushd java
+	export CLASSPATH=`pwd`
+	javac ../../homekicore/src/com/homeki/core/device/tellstick/TellStickNative.java -d .
+	javah -jni com.homeki.core.device.tellstick.TellStickNative
+else
+	echo "Usage: imake build|eclipse|java"	
+fi
+
+popd > /dev/null
