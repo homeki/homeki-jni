@@ -5,7 +5,7 @@ pushd `dirname "$0"`> /dev/null
 JAVA_PROJECT_DIR=../../homekicore
 
 if [ -z $1 ]; then
-	echo "Usage: imake build|eclipse|java"
+	echo "Usage: imake build|eclipse|java|clean"
 elif [ $1 = "build" ]; then
 	echo "imake: Building project..."
 	mkdir -p build
@@ -15,16 +15,26 @@ elif [ $1 = "build" ]; then
 	popd > /dev/null
 elif [ $1 = "eclipse" ]; then
 	echo "imake: Generating Eclipse project files..."
-	cmake -G"Eclipse CDT4 - Unix Makefiles"
+	mkdir -p build
+	pushd build > /dev/null
+	cmake -G"Eclipse CDT4 - Unix Makefiles" ..
+	popd > /dev/null
+	mv build/.project .
+	mv build/.cproject .
 elif [ $1 = "java" ]; then
 	echo "imake: Generating header files from Java source code..."
 	mkdir -p java
-	pushd java
+	pushd java > /dev/null
 	export CLASSPATH=`pwd`
 	javac ../../homekicore/src/com/homeki/core/device/tellstick/TellStickNative.java -d .
 	javah -jni com.homeki.core.device.tellstick.TellStickNative
+	popd > /dev/null
+	mv java/*.h include
+	rm -rf java
+elif [ $1 = "clean" ]; then
+	rm -rf lib build
 else
-	echo "Usage: imake build|eclipse|java"	
+	echo "Usage: imake build|eclipse|java|clean"	
 fi
 
 popd > /dev/null
