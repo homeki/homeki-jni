@@ -9,10 +9,26 @@ extern "C" {
 #endif
 /*
  * Class:     com_homeki_core_device_tellstick_TellStickNative
- * Method:    print
+ * Method:    open
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_print
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_open
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    close
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_close
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    getDeviceIds
+ * Signature: ()[I
+ */
+JNIEXPORT jintArray JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getDeviceIds
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus
