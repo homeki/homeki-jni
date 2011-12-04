@@ -13,7 +13,7 @@ extern "C" {
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_open
-  (JNIEnv *, jobject);
+  (JNIEnv *, jclass);
 
 /*
  * Class:     com_homeki_core_device_tellstick_TellStickNative
@@ -21,7 +21,7 @@ JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_ope
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_close
-  (JNIEnv *, jobject);
+  (JNIEnv *, jclass);
 
 /*
  * Class:     com_homeki_core_device_tellstick_TellStickNative
@@ -29,7 +29,15 @@ JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_clo
  * Signature: ()[I
  */
 JNIEXPORT jintArray JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getDeviceIds
-  (JNIEnv *, jobject);
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    getDeviceType
+ * Signature: (I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getDeviceType
+  (JNIEnv *, jclass, jint);
 
 #ifdef __cplusplus
 }
