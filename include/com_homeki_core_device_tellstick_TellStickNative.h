@@ -39,6 +39,30 @@ JNIEXPORT jintArray JNICALL Java_com_homeki_core_device_tellstick_TellStickNativ
 JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getDeviceType
   (JNIEnv *, jclass, jint);
 
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    turnOn
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_turnOn
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    turnOff
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_turnOff
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    dim
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_dim
+  (JNIEnv *, jclass, jint, jint);
+
 #ifdef __cplusplus
 }
 #endif

@@ -38,3 +38,15 @@ JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_
 
 	return env->NewStringUTF(type.c_str());
 }
+
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_turnOn(JNIEnv* env, jclass cl, jint id) {
+	tdTurnOn((int)id);
+}
+
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_turnOff(JNIEnv* env, jclass cl, jint id) {
+	tdTurnOff((int)id);
+}
+
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_dim(JNIEnv* env, jclass cl, jint id, jint level) {
+	tdDim((int)id, (unsigned char)level);
+}
