@@ -1,26 +1,20 @@
 #!/bin/bash
 
+function usage {
+	echo "Usage: imake build|java"
+}
+
 pushd `dirname "$0"`> /dev/null
 
 JAVA_PROJECT_DIR=../../homekicore
 
 if [ -z $1 ]; then
-	echo "Usage: imake build|eclipse|java|clean"
+	usage
 elif [ $1 = "build" ]; then
 	echo "imake: Building project..."
-	mkdir -p build
-	pushd build > /dev/null
-	cmake ..
+	rm -f CMakeCache.txt
+	cmake -G"Eclipse CDT4 - Unix Makefiles"
 	make
-	popd > /dev/null
-elif [ $1 = "eclipse" ]; then
-	echo "imake: Generating Eclipse project files..."
-	mkdir -p build
-	pushd build > /dev/null
-	cmake -G"Eclipse CDT4 - Unix Makefiles" ..
-	popd > /dev/null
-	mv build/.project .
-	mv build/.cproject .
 elif [ $1 = "java" ]; then
 	echo "imake: Generating header files from Java source code..."
 	mkdir -p java
@@ -31,10 +25,8 @@ elif [ $1 = "java" ]; then
 	popd > /dev/null
 	mv java/*.h include
 	rm -rf java
-elif [ $1 = "clean" ]; then
-	rm -rf lib build
 else
-	echo "Usage: imake build|eclipse|java|clean"	
+	usage	
 fi
 
 popd > /dev/null
