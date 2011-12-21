@@ -4,6 +4,7 @@ find_path(TELLDUS_H telldus-core.h)
 find_library(TELLDUS telldus-core) 
 
 set(SRC 
+        tellstickeventqueue.cpp
         tellstick.cpp) 
 
 include_directories(${PROJECT_SOURCE_DIR})

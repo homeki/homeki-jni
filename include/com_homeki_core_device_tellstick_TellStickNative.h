@@ -63,6 +63,14 @@ JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_tur
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_dim
   (JNIEnv *, jclass, jint, jint);
 
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    getEvent
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getEvent
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

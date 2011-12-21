@@ -1,17 +1,48 @@
 #include <string>
 #include <stdio.h>
+#include <sstream>
 
 #include <jni.h>
 #include <telldus-core.h>
 
 #include <com_homeki_core_device_tellstick_TellStickNative.h>
+#include "tellstickeventqueue.h"
+
+static int callbackId = 0;
+static TellstickEventQueue* evq;
+
+void deviceEvent(int deviceId, int method, const char* data, int callbackId, void* context) {
+	std::stringstream event;
+	event << deviceId << " ";
+
+	switch (method) {
+	case TELLSTICK_TURNON:
+		event << "true";
+		break;
+	case TELLSTICK_TURNOFF:
+		event << "false";
+		break;
+	case TELLSTICK_DIM:
+		event << data;
+		break;
+	default:
+		event << "(unknown)";
+		break;
+	}
+
+	evq->addEvent(event.str());
+}
 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_open(JNIEnv* env, jclass jobj) {
+	evq = new TellstickEventQueue();
 	tdInit();
+	callbackId = tdRegisterDeviceEvent(deviceEvent, NULL);
 }
 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_close(JNIEnv* env, jclass jobj) {
+	tdUnregisterCallback(callbackId);
 	tdClose();
+	delete evq;
 }
 
 JNIEXPORT jintArray JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getDeviceIds(JNIEnv* env, jclass jobj) {
@@ -56,3 +87,9 @@ JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_tur
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_dim(JNIEnv* env, jclass cl, jint id, jint level) {
 	tdDim((int)id, (unsigned char)level);
 }
+
+JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getEvent(JNIEnv* env, jclass jc) {
+	std::string event = evq->getEvent();
+	return env->NewStringUTF(event.c_str());
+}
+
