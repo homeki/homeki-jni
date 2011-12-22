@@ -11,12 +11,14 @@ public:
 	virtual ~TellstickEventQueue();
 
 	void addEvent(std::string event);
+	void ensureSemaphores();
 	std::string getEvent();
 
 private:
 	sem_t sem;
 	sem_t mutex;
 	std::queue<std::string> eventQueue;
+	bool init;
 };
 
 #endif
