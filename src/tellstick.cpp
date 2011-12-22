@@ -89,10 +89,6 @@ JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_dim
 }
 
 JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_getEvent(JNIEnv* env, jclass jc) {
-	sem_t testsem;
-	sem_init(&testsem, 0, 0);
-	sem_wait(&testsem);
-
 	std::string event = evq->getEvent();
 	return env->NewStringUTF(event.c_str());
 }
