@@ -14,8 +14,8 @@ public:
 	std::string getEvent();
 
 private:
-	sem_t* sem;
-	sem_t* mutex;
+	sem_t sem;
+	sem_t mutex;
 	std::queue<std::string> eventQueue;
 };
 
