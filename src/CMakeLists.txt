@@ -1,4 +1,5 @@
 find_package(JNI REQUIRED)
+find_package(Threads)
 
 find_path(TELLDUS_H telldus-core.h)
 find_library(TELLDUS telldus-core) 
@@ -14,4 +15,4 @@ include_directories(${TELLDUS_H})
 
 add_library(homekijni SHARED ${SRC})
 
-target_link_libraries(homekijni ${TELLDUS})
+target_link_libraries(homekijni ${CMAKE_THREAD_LIBS_INIT} ${TELLDUS})
