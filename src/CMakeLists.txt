@@ -1,4 +1,5 @@
 find_package(JNI REQUIRED)
+find_package(Threads)
 find_path(TELLDUS_H telldus-core.h)
 find_library(TELLDUS telldus-core)
 
