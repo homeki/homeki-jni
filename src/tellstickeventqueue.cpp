@@ -1,20 +1,13 @@
 #include "tellstickeventqueue.h"
 
-TellstickEventQueue::TellstickEventQueue() : init(false) {
-
+TellstickEventQueue::TellstickEventQueue() {
+	sem_init(&sem, 0, 0);
+	sem_init(&mutex, 0, 1);
 }
 
 TellstickEventQueue::~TellstickEventQueue() {
 	sem_destroy(&sem);
 	sem_destroy(&mutex);
-}
-
-void TellstickEventQueue::ensureSemaphores() {
-	if (!init) {
-		init = true;
-		sem_init(&sem, 0, 0);
-		sem_init(&mutex, 0, 1);
-	}
 }
 
 void TellstickEventQueue::addEvent(std::string event) {
