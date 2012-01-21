@@ -62,16 +62,10 @@ JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_
 	int features = tdMethods((int)id, TELLSTICK_DIM | TELLSTICK_TURNON);
 	std::string type;
 
-	if (features & TELLSTICK_DIM) {
+	if (features & TELLSTICK_DIM)
 		type = "dimmer";
-	} else if (features & TELLSTICK_TURNON) {
-		std::string name = tdGetName((int)id);
-
-		if (name.size() >= 12 && name.substr(name.size() - 11, 11) == "-fakedimmer")
-			type = "fakedimmer";
-		else
-			type = "switch";
-	}
+	else if (features & TELLSTICK_TURNON)
+		type = "switch";
 
 	return env->NewStringUTF(type.c_str());
 }
