@@ -9,11 +9,12 @@
 #include "tellstickeventqueue.h"
 
 static int callbackId = 0;
+static int sensorbackId = 0;
 static TellstickEventQueue* evq;
 
 void deviceEvent(int deviceId, int method, const char* data, int callbackId, void* context) {
 	std::stringstream event;
-	event << deviceId << " ";
+	event << "device" << " " << deviceId << " ";
 
 	switch (method) {
 	case TELLSTICK_TURNON:
@@ -33,14 +34,33 @@ void deviceEvent(int deviceId, int method, const char* data, int callbackId, voi
 	evq->addEvent(event.str());
 }
 
+void sensorEvent(const char* protocol, const char* model, int id, int dataType, const char* data, int timestamp, int callbackId, void* context) {
+	std::stringstream event;
+	event << "sensor";
+	switch (dataType) {	
+	case TELLSTICK_TEMPERATURE:
+		event << " " << id;
+		event << " " << data; 
+		event << " " << timestamp; 
+		if (id != 255){
+			evq->addEvent(event.str());
+		}
+		break;
+	default:
+		break;
+	}
+}
+
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_open(JNIEnv* env, jclass jobj) {
 	evq = new TellstickEventQueue();
 	tdInit();
 	callbackId = tdRegisterDeviceEvent(deviceEvent, NULL);
+	sensorbackId = tdRegisterSensorEvent(sensorEvent, NULL);
 }
 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_close(JNIEnv* env, jclass jobj) {
 	tdUnregisterCallback(callbackId);
+	tdUnregisterCallback(sensorbackId);
 	tdClose();
 	delete evq;
 }
