@@ -8,8 +8,8 @@
 #include <com_homeki_core_device_tellstick_TellStickNative.h>
 #include "tellstickeventqueue.h"
 
-static int callbackId = 0;
-static int sensorbackId = 0;
+static int deviceCallbackId = 0;
+static int sensorCallbackId = 0;
 static TellstickEventQueue* evq;
 
 void deviceEvent(int deviceId, int method, const char* data, int callbackId, void* context) {
@@ -54,13 +54,13 @@ void sensorEvent(const char* protocol, const char* model, int id, int dataType, 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_open(JNIEnv* env, jclass jobj) {
 	evq = new TellstickEventQueue();
 	tdInit();
-	callbackId = tdRegisterDeviceEvent(deviceEvent, NULL);
-	sensorbackId = tdRegisterSensorEvent(sensorEvent, NULL);
+	deviceCallbackId = tdRegisterDeviceEvent(deviceEvent, NULL);
+	sensorCallbackId = tdRegisterSensorEvent(sensorEvent, NULL);
 }
 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_close(JNIEnv* env, jclass jobj) {
-	tdUnregisterCallback(callbackId);
-	tdUnregisterCallback(sensorbackId);
+	tdUnregisterCallback(deviceCallbackId);
+	tdUnregisterCallback(sensorCallbackId);
 	tdClose();
 	delete evq;
 }
