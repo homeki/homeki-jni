@@ -42,9 +42,6 @@ void sensorEvent(const char* protocol, const char* model, int id, int dataType, 
 		event << " " << id;
 		event << " " << data; 
 		event << " " << timestamp; 
-		if (id != 255){
-			evq->addEvent(event.str());
-		}
 		break;
 	default:
 		break;
