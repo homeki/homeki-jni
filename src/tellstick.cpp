@@ -37,6 +37,7 @@ void deviceEvent(int deviceId, int method, const char* data, int callbackId, voi
 void sensorEvent(const char* protocol, const char* model, int id, int dataType, const char* data, int timestamp, int callbackId, void* context) {
 	std::stringstream event;
 	event << "sensor";
+
 	switch (dataType) {	
 	case TELLSTICK_TEMPERATURE:
 		event << " " << id;
@@ -46,6 +47,8 @@ void sensorEvent(const char* protocol, const char* model, int id, int dataType, 
 	default:
 		break;
 	}
+
+	evq->addEvent(event.str());
 }
 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_open(JNIEnv* env, jclass jobj) {
