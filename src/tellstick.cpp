@@ -45,7 +45,7 @@ void sensorEvent(const char* protocol, const char* model, int id, int dataType, 
 		event << " " << timestamp; 
 		break;
 	default:
-		break;
+		return;
 	}
 
 	evq->addEvent(event.str());
