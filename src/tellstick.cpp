@@ -27,8 +27,7 @@ void deviceEvent(int deviceId, int method, const char* data, int callbackId, voi
 		event << data;
 		break;
 	default:
-		event << "(unknown)";
-		break;
+		return;
 	}
 
 	evq->addEvent(event.str());
