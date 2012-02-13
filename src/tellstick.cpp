@@ -8,6 +8,9 @@
 #include <com_homeki_core_device_tellstick_TellStickNative.h>
 #include "tellstickeventqueue.h"
 
+#define SWITCH 1
+#define DIMMER 2
+
 static int deviceCallbackId = 0;
 static int sensorCallbackId = 0;
 static TellstickEventQueue* evq;
@@ -50,6 +53,30 @@ void sensorEvent(const char* protocol, const char* model, int id, int dataType, 
 	evq->addEvent(event.str());
 }
 
+int addDevice(int type, int house, int unit) {
+	jint id = tdAddDevice();
+
+	if (id < 0)
+		return id;
+
+	char houseStr[10];
+	char unitStr[10];
+
+	sprintf(houseStr, "%d", house);
+	sprintf(unitStr, "%d", unit);
+
+	if (type == SWITCH)
+		tdSetModel(id, "selflearning-switch");
+	else if (type == DIMMER)
+		tdSetModel(id, "selflearning-dimmer");
+
+	tdSetProtocol(id, "arctech");
+	tdSetDeviceParameter(id, "house", houseStr);
+	tdSetDeviceParameter(id, "unit", unitStr);
+
+	return id;
+}
+
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_open(JNIEnv* env, jclass jobj) {
 	evq = new TellstickEventQueue();
 	tdInit();
@@ -87,6 +114,22 @@ JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_
 		type = "switch";
 
 	return env->NewStringUTF(type.c_str());
+}
+
+JNIEXPORT jint JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_addSwitch(JNIEnv* env, jclass cl, jint house, jint unit) {
+	return addDevice(SWITCH, house, unit);
+}
+
+JNIEXPORT jint JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_addDimmer(JNIEnv* env, jclass cl, jint house, jint unit) {
+	return addDevice(DIMMER, house, unit);
+}
+
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_learn(JNIEnv* env, jclass cl, jint id) {
+	tdLearn(id);
+}
+
+JNIEXPORT jboolean JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_removeDevice(JNIEnv* env, jclass cl, jint id) {
+	return tdRemoveDevice(id);
 }
 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_turnOn(JNIEnv* env, jclass cl, jint id) {

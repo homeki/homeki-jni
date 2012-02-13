@@ -41,6 +41,38 @@ JNIEXPORT jstring JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_
 
 /*
  * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    addSwitch
+ * Signature: (II)I
+ */
+JNIEXPORT jint JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_addSwitch
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    addDimmer
+ * Signature: (II)I
+ */
+JNIEXPORT jint JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_addDimmer
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    learn
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_learn
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
+ * Method:    removeDevice
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_removeDevice
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_homeki_core_device_tellstick_TellStickNative
  * Method:    turnOn
  * Signature: (I)V
  */
