@@ -21,6 +21,7 @@ elif [ $1 = "java" ]; then
 	pushd java > /dev/null
 	export CLASSPATH=`pwd`
 	javac ../../homekicore/src/com/homeki/core/device/tellstick/TellStickNative.java -d .
+	javac ../../homekicore/src/com/homeki/core/device/tellstick/TellStickNativeException.java -d .
 	javah -jni com.homeki.core.device.tellstick.TellStickNative
 	popd > /dev/null
 	mv java/*.h include
