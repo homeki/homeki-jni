@@ -66,9 +66,9 @@ JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_lea
 /*
  * Class:     com_homeki_core_device_tellstick_TellStickNative
  * Method:    removeDevice
- * Signature: (I)Z
+ * Signature: (I)V
  */
-JNIEXPORT jboolean JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_removeDevice
+JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_removeDevice
   (JNIEnv *, jclass, jint);
 
 /*
