@@ -1,12 +1,12 @@
-#include <string>
-#include <stdio.h>
-#include <sstream>
+#include "tellstickeventqueue.h"
 
+#include <com_homeki_core_device_tellstick_TellStickNative.h>
 #include <jni.h>
 #include <telldus-core.h>
 
-#include <com_homeki_core_device_tellstick_TellStickNative.h>
-#include "tellstickeventqueue.h"
+#include <iostream>
+#include <string>
+#include <sstream>
 
 #define SWITCH 1
 #define DIMMER 2
@@ -20,7 +20,7 @@ jint throwTellStickException(JNIEnv* env, const char message[]) {
 	jclass exClass = env->FindClass(className);
 
 	if (exClass == NULL) {
-		printf("Exception class not found, don't know what to do now. Panic! Abort!");
+		std::cout << "Exception class not found, don't know what to do now. Panic! Abort!" << std::endl;
         return -1;
 	}
 
