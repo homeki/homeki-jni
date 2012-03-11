@@ -62,17 +62,26 @@ void sensorEvent(const char* protocol, const char* model, int id, int dataType, 
 	std::stringstream event;
 	event << "sensor";
 
+	std::cout << "NATIVE: Sensor event received." << std::endl;
+
 	switch (dataType) {	
 	case TELLSTICK_TEMPERATURE:
 		event << " " << id;
 		event << " " << data; 
-		event << " " << timestamp; 
+		event << " " << timestamp;
+		std::cout << "NATIVE: Sensor event data:";
+		std::cout << " " << id;
+		std::cout << " " << data;
+		std::cout << " " << timestamp;
+		std::cout << std::endl;
 		break;
 	default:
 		return;
 	}
 
+	std::cout << "NATIVE: Before evq->addEvent()" << std::endl;
 	evq->addEvent(event.str());
+	std::cout << "NATIVE: After evq->addEvent()" << std::endl;
 }
 
 int addDevice(JNIEnv* env, int type, int house, int unit) {
