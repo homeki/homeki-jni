@@ -1,7 +1,8 @@
 #ifndef TELLSTICKEVENTQUEUE_H_
 #define TELLSTICKEVENTQUEUE_H_
 
-#include <semaphore.h>
+#include <boost/thread/condition_variable.hpp>
+#include <boost/thread/mutex.hpp>
 #include <queue>
 #include <string>
 
@@ -14,8 +15,8 @@ public:
 	std::string getEvent();
 
 private:
-	sem_t sem;
-	sem_t mutex;
+	boost::condition_variable cond;
+	boost::mutex mut;
 	std::queue<std::string> eventQueue;
 };
 

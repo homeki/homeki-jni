@@ -1,27 +1,27 @@
 #include "tellstickeventqueue.h"
 
 TellstickEventQueue::TellstickEventQueue() {
-	sem_init(&sem, 0, 0);
-	sem_init(&mutex, 0, 1);
+
 }
 
 TellstickEventQueue::~TellstickEventQueue() {
-	sem_destroy(&sem);
-	sem_destroy(&mutex);
+
 }
 
 void TellstickEventQueue::addEvent(std::string event) {
-	sem_wait(&mutex);
+	boost::lock_guard<boost::mutex> lock(mut);
 	eventQueue.push(event);
-	sem_post(&mutex);
-	sem_post(&sem);
+	cond.notify_all();
 }
 
 std::string TellstickEventQueue::getEvent() {
-	sem_wait(&sem);
-	sem_wait(&mutex);
+	boost::unique_lock<boost::mutex> lock(mut);
+
+    while(eventQueue.empty())
+        cond.wait(lock);
+
 	std::string event = eventQueue.front();
 	eventQueue.pop();
-	sem_post(&mutex);
+
 	return event;
 }

@@ -76,6 +76,7 @@ void sensorEvent(const char* protocol, const char* model, int id, int dataType, 
 		std::cout << std::endl;
 		break;
 	default:
+		std::cout << "NATIVE: Returned without action, not a TELLSTICK_TEMPERATURE." << std::endl;
 		return;
 	}
 
