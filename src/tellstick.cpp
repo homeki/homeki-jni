@@ -112,19 +112,19 @@ JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_ope
 	evq = new TellstickEventQueue();
 	tdInit();
 	deviceCallbackId = tdRegisterDeviceEvent(deviceEvent, NULL);
-	sensorCallbackId = tdRegisterSensorEvent(sensorEvent, NULL);
+	//sensorCallbackId = tdRegisterSensorEvent(sensorEvent, NULL);
 
 	if (checkIfFailed(env, deviceCallbackId))
 		return;
-	if (checkIfFailed(env, sensorCallbackId))
-		return;
+	//if (checkIfFailed(env, sensorCallbackId))
+	//	return;
 }
 
 JNIEXPORT void JNICALL Java_com_homeki_core_device_tellstick_TellStickNative_close(JNIEnv* env, jclass jobj) {
 	// we ignore negative return values here, not much to do if we fail to unregister,
 	// Homeki is most probably shutting down anyway
 	tdUnregisterCallback(deviceCallbackId);
-	tdUnregisterCallback(sensorCallbackId);
+	//tdUnregisterCallback(sensorCallbackId);
 
 	tdClose();
 
