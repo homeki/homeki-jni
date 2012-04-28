@@ -13,7 +13,7 @@ find_package(Telldus REQUIRED)
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${JAVA_INCLUDE_PATH})
-include_directories(${TELLDUS_INCLUDE_PATH})
+include_directories(${TELLDUS_INCLUDE_DIRS})
 
 # Setup output locations
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
