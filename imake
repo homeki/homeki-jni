@@ -17,7 +17,7 @@ elif [ $1 = "build" ]; then
 	make
 elif [ $1 = "prereqs" ]; then
 	echo "imake: Installing prereqs..."
-	sudo apt-get install g++ cmake libtelldus-core-dev
+	sudo apt-get install g++ cmake openjdk-6-jdk
 elif [ $1 = "java" ]; then
 	echo "imake: Generating header files from Java source code..."
 	mkdir -p java
