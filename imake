@@ -26,6 +26,7 @@ elif [ $1 = "java" ]; then
 	javac ../../homekicore/src/com/homeki/core/device/tellstick/TellStickNative.java ../../homekicore/src/com/homeki/core/device/tellstick/TellStickNativeException.java -d .
 	javah -jni com.homeki.core.device.tellstick.TellStickNative
 	popd > /dev/null
+	rm -rf include/*
 	mv java/*.h include
 	rm -rf java
 else
